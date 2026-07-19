@@ -1,0 +1,48 @@
+name: Public-page contract problem
+description: Report a reproducible API or documentation problem using a non-sensitive public target.
+title: "[Contract]: "
+labels: [contract]
+body:
+  - type: markdown
+    attributes:
+      value: Never include an API key, private URL, signed URL, customer data, or unredacted authorization header.
+  - type: dropdown
+    id: endpoint
+    attributes:
+      label: Endpoint or client
+      options:
+        - POST /v1/render
+        - GET /v1/screenshot
+        - GET /v1/usage
+        - MCP capture_page
+        - Documentation or OpenAPI
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include status and sanitized diagnostic headers, but no credential or sensitive target.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Use example.com or another non-sensitive public URL when possible.
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed API keys, authorization headers, private/signed URLs, customer data, and sensitive artifacts.
+          required: true
