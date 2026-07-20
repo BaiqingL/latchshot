@@ -89,6 +89,7 @@ After reviewing the exact boundary, use the [no-account implementation-pilot req
 - [Vercel and Next.js screenshot API guide](https://latchshot.fly.dev/guides/vercel-nextjs-screenshot-api.html)
 - [Screenshot API product backend guide](https://latchshot.fly.dev/guides/screenshot-api-backend.html)
 - [Full-page screenshots with lazy-loaded content](https://latchshot.fly.dev/guides/full-page-screenshot-lazy-loading.html)
+- [SSRF-safe website screenshot guide](https://latchshot.fly.dev/guides/ssrf-safe-screenshot-api.html)
 - [VS Code, Cursor, goose, and other recipes](https://latchshot.fly.dev/integrations.md)
 
 ## Examples
