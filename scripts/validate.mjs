@@ -60,6 +60,7 @@ const required = [
   [implementationPilotForm.includes('Provider behavior that must be preserved') && implementationPilotForm.includes('Public acceptance sample'), 'implementation-pilot form acceptance qualification is missing'],
   [implementationPilotForm.includes('does not take payment') && implementationPilotForm.includes('no payment or work starts'), 'implementation-pilot form owner-confirmed start boundary is missing'],
   [readme.includes('https://latchshot.fly.dev/screenshot-safety-review.html'), 'README screenshot safety-review offer is missing'],
+  [readme.includes('https://latchshot.fly.dev/screenshot-safety-check.html') && readme.includes('answers and plain-text handoff are not submitted or stored'), 'README local safety-check path or data boundary is missing'],
   [readme.includes('issues/new?template=screenshot-safety-review.yml'), 'README screenshot safety-review form path is missing'],
   [safetyReviewForm.includes('This issue is public.') && safetyReviewForm.includes('Never include an API key'), 'safety-review form public safety warning is missing'],
   [safetyReviewForm.includes('Public GitHub repository URL') && safetyReviewForm.includes('Screenshot route file path'), 'safety-review form repository scope is missing'],
