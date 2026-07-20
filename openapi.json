@@ -185,7 +185,7 @@
         "summary": "Read current monthly usage",
         "tags": ["Access"],
         "security": [{ "bearerAuth": [] }],
-        "description": "Returns the authenticated key's current plan, successful-render allowance, consumption counters, next UTC calendar-month reset time, and any paid-plan request attached to the key. This request does not consume render quota.",
+        "description": "Returns the authenticated key's current plan, successful-render allowance, consumption counters, next UTC calendar-month reset time, any paid-plan request attached to the key, and stable self-serve plan and upgrade links. This request does not consume render quota or initiate an upgrade.",
         "responses": {
           "200": {
             "description": "Current plan, quota usage, and optional paid-plan request",
@@ -299,7 +299,7 @@
       },
       "UsageResponse": {
         "type": "object",
-        "required": ["customer", "usage", "upgradeRequest"],
+        "required": ["customer", "usage", "upgradeRequest", "links"],
         "properties": {
           "customer": {
             "type": "object",
@@ -332,6 +332,16 @@
               { "$ref": "#/components/schemas/UpgradeStatus" },
               { "type": "null" }
             ]
+          },
+          "links": {
+            "type": "object",
+            "description": "Stable self-serve continuation links. They are informational and do not take payment or initiate an upgrade.",
+            "required": ["plans", "requestPaidPlan", "requestPaidPlanDocs"],
+            "properties": {
+              "plans": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/#pricing" },
+              "requestPaidPlan": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/#upgrade" },
+              "requestPaidPlanDocs": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/docs.md#request-a-paid-plan" }
+            }
           }
         }
       },
