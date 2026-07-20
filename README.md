@@ -88,6 +88,7 @@ After reviewing the exact boundary, use the [no-account implementation-pilot req
 - [Supabase Edge Function screenshot guide](https://latchshot.fly.dev/guides/supabase-edge-function-screenshot.html)
 - [Vercel and Next.js screenshot API guide](https://latchshot.fly.dev/guides/vercel-nextjs-screenshot-api.html)
 - [Screenshot API product backend guide](https://latchshot.fly.dev/guides/screenshot-api-backend.html)
+- [Full-page screenshots with lazy-loaded content](https://latchshot.fly.dev/guides/full-page-screenshot-lazy-loading.html)
 - [VS Code, Cursor, goose, and other recipes](https://latchshot.fly.dev/integrations.md)
 
 ## Examples
