@@ -67,6 +67,8 @@ Already using a screenshot API? Start with the [general option map and productio
 
 Move only trusted-server synchronous public-page jobs that fit Latchshot's smaller contract. Keep the current provider for every job that depends on a guide's stop list.
 
+Not sure whether the compatible slice covers your job? Open a [public migration-fit question](https://github.com/BaiqingL/latchshot/issues/new?template=migration-fit.yml) with the request contract and required provider behavior. Do not include keys, private or signed URLs, customer data, or sensitive artifacts.
+
 ## Integrations
 
 - [CLI and Node client](https://github.com/BaiqingL/latchshot-cli)

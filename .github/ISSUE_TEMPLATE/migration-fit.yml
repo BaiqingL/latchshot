@@ -1,0 +1,87 @@
+name: Provider migration fit
+description: Check whether a server-side screenshot job fits Latchshot before changing providers.
+title: "[Migration fit]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is a public issue. Describe the request contract, not the customer or target. Never include an API key, private URL, signed URL, customer data, or unredacted authorization header.
+
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Current provider
+      options:
+        - ApiFlash
+        - ScreenshotMachine
+        - ScreenshotOne
+        - Urlbox
+        - Local Playwright or Puppeteer
+        - Another provider
+        - Not implemented yet
+    validations:
+      required: true
+
+  - type: dropdown
+    id: caller
+    attributes:
+      label: Where the capture request runs
+      options:
+        - Trusted server or backend worker
+        - Browser or public image embed
+        - Private network or authenticated session
+        - Not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: output
+    attributes:
+      label: Required output
+      options:
+        - PNG
+        - JPEG
+        - PDF
+        - More than one of these
+        - Another format
+    validations:
+      required: true
+
+  - type: textarea
+    id: job
+    attributes:
+      label: Capture job
+      description: Describe the public-page job and response shape without naming a private or customer URL.
+      placeholder: A backend worker captures a public product page as a 1200×630 PNG and stores the returned bytes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: required_features
+    attributes:
+      label: Provider behavior that must be preserved
+      description: List required cache, delivery, browser-state, selection, storage, or error-contract behavior. Write “none” if the job needs only synchronous artifact bytes.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: volume
+    attributes:
+      label: Expected successful captures per UTC month
+      options:
+        - 1–100
+        - 101–2,500
+        - 2,501–12,000
+        - 12,001–50,000
+        - More than 50,000
+        - Not sure
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public issue safety
+      options:
+        - label: I removed API keys, authorization headers, private or signed URLs, customer data, and sensitive artifacts.
+          required: true
