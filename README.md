@@ -23,18 +23,19 @@ curl --fail-with-body https://latchshot.fly.dev/v1/render \
   -H 'Content-Type: application/json' \
   --data '{
     "url": "https://example.com",
-    "format": "png",
+    "format": "jpeg",
+    "quality": 85,
     "width": 1440,
     "height": 900
   }' \
-  --output capture.png
+  --output capture.jpg
 ```
 
 The response body is the artifact. Render timing, navigation state, and remaining quota are returned in headers.
 
 ## Contract
 
-Latchshot supports public HTTP and HTTPS pages on ports 80 and 443. It bounds viewport size, delay, deadline, concurrency, queue depth, and output size. Optional best-effort controls can block known third-party ad/tracker hosts and hide common cookie-consent overlays without accepting consent. Private, loopback, link-local, special-use, and mixed public/private DNS targets are rejected.
+Latchshot supports public HTTP and HTTPS pages on ports 80 and 443. It bounds viewport size, JPEG quality (1–100), delay, deadline, concurrency, queue depth, and output size. Optional best-effort controls can block known third-party ad/tracker hosts and hide common cookie-consent overlays without accepting consent. Private, loopback, link-local, special-use, and mixed public/private DNS targets are rejected.
 
 It intentionally does not support:
 

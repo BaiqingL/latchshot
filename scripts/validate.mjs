@@ -21,6 +21,7 @@ const required = [
   [spec.paths?.['/v1/usage']?.get?.security?.[0]?.bearerAuth, 'usage endpoint must require Bearer auth'],
   [spec.paths?.['/v1/upgrade-requests']?.post?.security?.[0]?.bearerAuth, 'upgrade endpoint must require Bearer auth'],
   [['blockAds', 'blockTrackers', 'hideCookieBanners'].every((name) => spec.components?.schemas?.RenderRequest?.properties?.[name]?.type === 'boolean'), 'bounded cleanup controls are missing from the render contract'],
+  [spec.components?.schemas?.RenderRequest?.properties?.quality?.minimum === 1 && spec.components?.schemas?.RenderRequest?.properties?.quality?.maximum === 100, 'bounded JPEG quality is missing from the render contract'],
   [readme.includes('?intent=githubcore#trial'), 'README Free-plan link must preserve repository attribution'],
   [migrationPaths.every((path) => readme.includes(`https://latchshot.fly.dev${path}`)), 'README provider migration index is incomplete'],
   [readme.includes("Keep the current provider for every job that depends on a guide's stop list."), 'README migration stop-list boundary is missing'],
