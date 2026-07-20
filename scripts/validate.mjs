@@ -26,6 +26,7 @@ const required = [
   [spec.paths?.['/v1/usage']?.get?.security?.[0]?.bearerAuth, 'usage endpoint must require Bearer auth'],
   [spec.paths?.['/v1/upgrade-requests']?.post?.security?.[0]?.bearerAuth, 'upgrade endpoint must require Bearer auth'],
   [['blockAds', 'blockTrackers', 'blockChats', 'hideCookieBanners', 'hidePopups'].every((name) => spec.components?.schemas?.RenderRequest?.properties?.[name]?.type === 'boolean'), 'bounded cleanup controls are missing from the render contract'],
+  [spec.components?.schemas?.RenderRequest?.properties?.scrollPage?.type === 'boolean', 'bounded scroll control is missing from the render contract'],
   [spec.components?.schemas?.RenderRequest?.properties?.quality?.minimum === 1 && spec.components?.schemas?.RenderRequest?.properties?.quality?.maximum === 100, 'bounded JPEG quality is missing from the render contract'],
   [spec.components?.schemas?.UsageResponse?.properties?.links?.properties?.implementationPilot?.const === 'https://latchshot.fly.dev/implementation-pilot.html', 'authenticated implementation-pilot continuation is missing'],
   [['/v1/screenshot', '/v1/render'].every((path) => {

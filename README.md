@@ -35,12 +35,12 @@ The response body is the artifact. Render timing, navigation state, remaining qu
 
 ## Contract
 
-Latchshot supports public HTTP and HTTPS pages on ports 80 and 443. It bounds viewport size, JPEG quality (1–100), delay, deadline, concurrency, queue depth, and output size. Optional best-effort controls can block known third-party ad/tracker/chat hosts and hide common cookie-consent or newsletter/signup/discount overlays without clicking, submitting, or accepting consent. Private, loopback, link-local, special-use, and mixed public/private DNS targets are rejected.
+Latchshot supports public HTTP and HTTPS pages on ports 80 and 443. It bounds viewport size, JPEG quality (1–100), delay, deadline, concurrency, queue depth, and output size. For full-page screenshots, optional `scrollPage` makes one deterministic sweep capped at 48 steps, 5 seconds, and 20,000 pixels to activate lazy content without caller-supplied actions. Optional best-effort controls can block known third-party ad/tracker/chat hosts and hide common cookie-consent or newsletter/signup/discount overlays without clicking, submitting, or accepting consent. Private, loopback, link-local, special-use, and mixed public/private DNS targets are rejected.
 
 It intentionally does not support:
 
 - cookies, login sessions, or private-network pages;
-- arbitrary browser scripts or multi-step interaction;
+- arbitrary browser scripts, custom scrolling, or multi-step interaction;
 - CAPTCHA solving, proxy rotation, or anti-bot bypass;
 - automatic overage billing.
 
