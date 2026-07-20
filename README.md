@@ -83,6 +83,7 @@ If the contract fits but you do not want to wire it yourself, Latchshot offers a
 - [Dify plugin](https://github.com/BaiqingL/latchshot-dify)
 - [n8n workflow](https://github.com/BaiqingL/latchshot-n8n)
 - [Supabase Edge Function screenshot guide](https://latchshot.fly.dev/guides/supabase-edge-function-screenshot.html)
+- [Vercel and Next.js screenshot API guide](https://latchshot.fly.dev/guides/vercel-nextjs-screenshot-api.html)
 - [VS Code, Cursor, goose, and other recipes](https://latchshot.fly.dev/integrations.md)
 
 ## Examples
