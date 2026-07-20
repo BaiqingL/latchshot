@@ -75,6 +75,7 @@ const required = [
   [powerPlatformReadme.includes('Bearer ls_live_replace_me') && powerPlatformReadme.includes('Never enter the key as a URL query parameter'), 'Power Platform secret-safe connection instructions are missing'],
   [powerPlatformReadme.includes('Get monthly usage') && powerPlatformReadme.includes('Capture a screenshot') && powerPlatformReadme.includes('Render a page artifact'), 'Power Platform acceptance matrix is incomplete'],
   [powerPlatformReadme.includes('https://latchshot.fly.dev/?intent=powerplatform#trial'), 'Power Platform Free-plan link must preserve channel attribution'],
+  [powerPlatformReadme.includes('releases/download/power-platform-v0.1.0-preview.1/latchshot-power-platform-connector-v0.1.0-preview.1.zip') && powerPlatformReadme.includes('b40550a449eee8cff5fcdc8d600d4d26981b8a2ede7cfbf02d089bac80adaf1d'), 'Power Platform immutable download or checksum is missing'],
   [powerPlatformReadme.includes('takes no payment') && powerPlatformReadme.includes('owner-managed'), 'Power Platform payment boundary is missing'],
   [readme.includes('implementation-pilot.html#request-pilot'), 'README no-account implementation-pilot path is missing'],
   [readme.includes('https://latchshot.fly.dev/screenshot-api-cost-calculator.html') && readme.includes('Inputs and results are not submitted or stored'), 'README local cost-calculator path or data boundary is missing'],

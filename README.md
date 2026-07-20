@@ -89,7 +89,7 @@ Already operate a screenshot endpoint? Start with the free [browser-local seven-
 - [Gemini CLI extension](https://github.com/BaiqingL/latchshot-gemini-cli)
 - [Dify plugin](https://github.com/BaiqingL/latchshot-dify)
 - [n8n workflow](https://github.com/BaiqingL/latchshot-n8n)
-- [Microsoft Power Platform custom connector preview](integrations/power-platform/README.md)
+- [Microsoft Power Platform custom connector preview](integrations/power-platform/README.md) — immutable [`v0.1.0-preview.1` package](https://github.com/BaiqingL/latchshot/releases/tag/power-platform-v0.1.0-preview.1)
 - [Supabase Edge Function screenshot guide](https://latchshot.fly.dev/guides/supabase-edge-function-screenshot.html)
 - [Vercel and Next.js screenshot API guide](https://latchshot.fly.dev/guides/vercel-nextjs-screenshot-api.html)
 - [Screenshot API product backend guide](https://latchshot.fly.dev/guides/screenshot-api-backend.html)

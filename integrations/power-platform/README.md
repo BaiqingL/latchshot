@@ -12,6 +12,16 @@ This is a self-service custom-connector package, not a certified Microsoft conne
 
 Latchshot owns the underlying API, so Microsoft's Independent Publisher program is not an eligible shortcut. An official out-of-box listing requires the owner to use the Certified Connector process, accept Microsoft's CLA and program terms, submit through ISV Studio, and provide tenant screenshots proving the operations inside successful flows.
 
+## Immutable preview download
+
+Download [`latchshot-power-platform-connector-v0.1.0-preview.1.zip`](https://github.com/BaiqingL/latchshot/releases/download/power-platform-v0.1.0-preview.1/latchshot-power-platform-connector-v0.1.0-preview.1.zip) from the [prerelease page](https://github.com/BaiqingL/latchshot/releases/tag/power-platform-v0.1.0-preview.1). Verify it before extraction:
+
+```text
+b40550a449eee8cff5fcdc8d600d4d26981b8a2ede7cfbf02d089bac80adaf1d  latchshot-power-platform-connector-v0.1.0-preview.1.zip
+```
+
+The archive contains exactly the three reviewed files below under one versioned directory. Its contents match source tag `power-platform-v0.1.0-preview.1`; a download or checksum match is package integrity evidence, not tenant validation or adoption.
+
 ## Files
 
 - [`apiDefinition.swagger.json`](apiDefinition.swagger.json) — fixed-origin OpenAPI 2.0 action contract.
