@@ -56,6 +56,17 @@ Use a browser you control when the job needs authentication, private connectivit
 
 Only successful direct renders consume quota. Failed renders do not, and automatic overages are disabled. Existing key holders can request a paid tier through the [production upgrade form](https://latchshot.fly.dev/#upgrade); payment and activation are handled separately by the owner.
 
+## Provider migration
+
+Already using a screenshot API? Start with the [general option map and production cutover checklist](https://latchshot.fly.dev/migrate.md), then use the provider-specific request and stop-list reference:
+
+- [ApiFlash to Latchshot](https://latchshot.fly.dev/guides/migrate-from-apiflash.html): query/form key, binary response, option units, cache, extraction, and storage boundaries.
+- [ScreenshotMachine to Latchshot](https://latchshot.fly.dev/guides/migrate-from-screenshotmachine.html): signed image URL, dimensions, error response, cache, device, and page-state boundaries.
+- [ScreenshotOne to Latchshot](https://latchshot.fly.dev/guides/migrate-from-screenshotone.html): query credential, seconds-to-milliseconds conversion, hosted output, async, and page-modification boundaries.
+- [Urlbox to Latchshot](https://latchshot.fly.dev/guides/migrate-from-urlbox.html): signed render links, temporary hosted URLs, response shape, cache, async, and storage boundaries.
+
+Move only trusted-server synchronous public-page jobs that fit Latchshot's smaller contract. Keep the current provider for every job that depends on a guide's stop list.
+
 ## Integrations
 
 - [CLI and Node client](https://github.com/BaiqingL/latchshot-cli)

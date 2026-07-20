@@ -2,6 +2,13 @@ import { readFile } from 'node:fs/promises';
 
 const spec = JSON.parse(await readFile(new URL('../openapi.json', import.meta.url), 'utf8'));
 const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
+const migrationPaths = [
+  '/migrate.md',
+  '/guides/migrate-from-apiflash.html',
+  '/guides/migrate-from-screenshotmachine.html',
+  '/guides/migrate-from-screenshotone.html',
+  '/guides/migrate-from-urlbox.html',
+];
 
 const required = [
   [spec.openapi === '3.1.0', 'OpenAPI version must remain 3.1.0'],
@@ -13,6 +20,8 @@ const required = [
   [spec.paths?.['/v1/usage']?.get?.security?.[0]?.bearerAuth, 'usage endpoint must require Bearer auth'],
   [spec.paths?.['/v1/upgrade-requests']?.post?.security?.[0]?.bearerAuth, 'upgrade endpoint must require Bearer auth'],
   [readme.includes('?intent=githubcore#trial'), 'README Free-plan link must preserve repository attribution'],
+  [migrationPaths.every((path) => readme.includes(`https://latchshot.fly.dev${path}`)), 'README provider migration index is incomplete'],
+  [readme.includes("Keep the current provider for every job that depends on a guide's stop list."), 'README migration stop-list boundary is missing'],
   [readme.includes('The hosted renderer source is not published here.'), 'repository scope boundary is missing'],
   [!readme.includes('ls_live_') || readme.includes("ls_live_replace_me"), 'README may contain an API key'],
 ];
