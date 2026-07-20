@@ -65,6 +65,7 @@ Already using a screenshot API? Start with the [general option map and productio
 - [ScreenshotMachine to Latchshot](https://latchshot.fly.dev/guides/migrate-from-screenshotmachine.html): signed image URL, dimensions, error response, cache, device, and page-state boundaries.
 - [ScreenshotOne to Latchshot](https://latchshot.fly.dev/guides/migrate-from-screenshotone.html): query credential, seconds-to-milliseconds conversion, hosted output, async, and page-modification boundaries.
 - [Urlbox to Latchshot](https://latchshot.fly.dev/guides/migrate-from-urlbox.html): signed render links, temporary hosted URLs, response shape, cache, async, and storage boundaries.
+- [Browserless to Latchshot](https://latchshot.fly.dev/guides/migrate-from-browserless.html): public-URL screenshot overlap, direct image bytes, wait controls, and the browser-session, page-state, inline-HTML, action, and network-placement stop list.
 
 Move only trusted-server synchronous public-page jobs that fit Latchshot's smaller contract. Keep the current provider for every job that depends on a guide's stop list.
 

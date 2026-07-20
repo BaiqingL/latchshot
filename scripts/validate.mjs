@@ -9,6 +9,7 @@ const migrationPaths = [
   '/guides/migrate-from-screenshotmachine.html',
   '/guides/migrate-from-screenshotone.html',
   '/guides/migrate-from-urlbox.html',
+  '/guides/migrate-from-browserless.html',
 ];
 
 const required = [
