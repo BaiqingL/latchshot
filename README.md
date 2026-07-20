@@ -73,7 +73,7 @@ Not sure whether the compatible slice covers your job? Open a [public migration-
 
 If the contract fits but you do not want to wire it yourself, Latchshot offers a [$99 one-time implementation pilot](https://latchshot.fly.dev/implementation-pilot.html) for one existing JavaScript/TypeScript or Python backend call site in a public GitHub repository you control. The pilot includes a focused patch, tests, an approved public acceptance sample, and a rollback note. Existing key holders reuse the same key. API usage is separate, and the owner confirms scope and handles payment before work starts.
 
-After reviewing the exact boundary, open the dedicated [public implementation-pilot fit check](https://github.com/BaiqingL/latchshot/issues/new?template=implementation-pilot.yml) with the repository, call-site path, non-secret request contract, required behavior, volume, and public acceptance sample. Submitting it does not take payment or authorize work.
+After reviewing the exact boundary, use the [no-account implementation-pilot request](https://latchshot.fly.dev/implementation-pilot.html#request-pilot) with the repository, call-site path, non-secret request contract, required behavior, volume, and public acceptance sample. A [public GitHub pilot form](https://github.com/BaiqingL/latchshot/issues/new?template=implementation-pilot.yml) remains available for a public review thread. Neither path takes payment or authorizes work.
 
 ## Integrations
 
