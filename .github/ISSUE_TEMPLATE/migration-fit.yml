@@ -78,6 +78,18 @@ body:
     validations:
       required: true
 
+  - type: dropdown
+    id: next_step
+    attributes:
+      label: Requested next step
+      description: A fit check is free. If the contract fits, the optional $99 pilot covers one JavaScript/TypeScript or Python backend call site in a public GitHub repository you control. API usage is separate.
+      options:
+        - Fit check only
+        - $99 implementation pilot if this contract fits
+        - Not sure yet
+    validations:
+      required: true
+
   - type: checkboxes
     id: safety
     attributes:
