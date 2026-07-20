@@ -341,7 +341,7 @@
               "plans": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/#pricing" },
               "requestPaidPlan": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/#upgrade" },
               "requestPaidPlanDocs": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/docs.md#request-a-paid-plan" },
-              "implementationPilot": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/migrate.md#optional-99-implementation-pilot", "description": "Describes the optional bounded $99 implementation service. The link itself starts neither work nor payment." }
+              "implementationPilot": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/implementation-pilot.html", "description": "Describes the optional bounded $99 implementation service. The link itself starts neither work nor payment." }
             }
           }
         }

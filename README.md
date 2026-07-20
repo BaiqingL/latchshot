@@ -55,7 +55,7 @@ Use a browser you control when the job needs authentication, private connectivit
 | Build | 12,000 | $49 |
 | Scale | 50,000 | $149 |
 
-Only successful direct renders consume quota. Failed renders do not, and automatic overages are disabled. Authenticated usage responses include stable plans, upgrade-form, upgrade-documentation, and bounded [$99 implementation-pilot](https://latchshot.fly.dev/migrate.md#optional-99-implementation-pilot) links so REST and MCP clients can expose the optional next step. Existing key holders can request a paid tier through the [production upgrade form](https://latchshot.fly.dev/#upgrade); payment, activation, and implementation start are handled separately by the owner.
+Only successful direct renders consume quota. Failed renders do not, and automatic overages are disabled. Authenticated usage responses include stable plans, upgrade-form, upgrade-documentation, and bounded [$99 implementation-pilot](https://latchshot.fly.dev/implementation-pilot.html) links so REST and MCP clients can expose the optional next step. Existing key holders can request a paid tier through the [production upgrade form](https://latchshot.fly.dev/#upgrade); payment, activation, and implementation start are handled separately by the owner.
 
 ## Provider migration
 
@@ -71,7 +71,7 @@ Move only trusted-server synchronous public-page jobs that fit Latchshot's small
 
 Not sure whether the compatible slice covers your job? Open a [public migration-fit question](https://github.com/BaiqingL/latchshot/issues/new?template=migration-fit.yml) with the request contract and required provider behavior. Do not include keys, private or signed URLs, customer data, or sensitive artifacts.
 
-If the contract fits but you do not want to wire it yourself, Latchshot offers a [$99 one-time implementation pilot](https://latchshot.fly.dev/migrate.md) for one existing JavaScript/TypeScript or Python backend call site in a public GitHub repository you control. The pilot includes a focused patch, tests, an approved public acceptance sample, and a rollback note. API usage is separate, and the owner confirms scope and handles payment before work starts.
+If the contract fits but you do not want to wire it yourself, Latchshot offers a [$99 one-time implementation pilot](https://latchshot.fly.dev/implementation-pilot.html) for one existing JavaScript/TypeScript or Python backend call site in a public GitHub repository you control. The pilot includes a focused patch, tests, an approved public acceptance sample, and a rollback note. Existing key holders reuse the same key. API usage is separate, and the owner confirms scope and handles payment before work starts.
 
 ## Integrations
 

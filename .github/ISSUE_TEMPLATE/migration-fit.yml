@@ -16,6 +16,7 @@ body:
         - ScreenshotMachine
         - ScreenshotOne
         - Urlbox
+        - Browserless
         - Local Playwright or Puppeteer
         - Another provider
         - Not implemented yet
