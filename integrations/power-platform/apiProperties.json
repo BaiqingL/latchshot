@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "api_key": {
+        "type": "securestring",
+        "uiDefinition": {
+          "displayName": "Authorization",
+          "description": "Enter Bearer followed by your Latchshot API key, for example: Bearer ls_live_replace_me",
+          "tooltip": "Use the exact format Bearer followed by one space and your API key.",
+          "constraints": {
+            "tabIndex": 2,
+            "clearText": false,
+            "required": "true"
+          }
+        }
+      }
+    },
+    "iconBrandColor": "#0B1F33",
+    "capabilities": [],
+    "publisher": "Latchshot",
+    "stackOwner": "Latchshot"
+  }
+}

@@ -1,0 +1,621 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Latchshot",
+    "description": "Render supported public web pages as PNG, JPEG, or PDF artifacts and inspect monthly usage. Enter the connection credential as Bearer followed by the Latchshot API key.",
+    "version": "1.0",
+    "contact": {
+      "name": "Latchshot support",
+      "url": "https://github.com/BaiqingL/latchshot/issues"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://github.com/BaiqingL/latchshot/blob/main/LICENSE"
+    }
+  },
+  "host": "latchshot.fly.dev",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+  "paths": {
+    "/v1/screenshot": {
+      "get": {
+        "summary": "Capture a screenshot",
+        "description": "Capture one supported public HTTP or HTTPS page. The result is a PNG or JPEG file object. Only a successful render consumes monthly quota.",
+        "operationId": "CaptureScreenshot",
+        "x-ms-visibility": "important",
+        "produces": [
+          "image/png",
+          "image/jpeg"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "uri",
+            "maxLength": 2048,
+            "x-ms-summary": "Public page URL",
+            "description": "Public HTTP or HTTPS URL on port 80 or 443. Private, loopback, credential-bearing, and special-use targets are rejected."
+          },
+          {
+            "name": "width",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 320,
+            "maximum": 2560,
+            "default": 1440,
+            "x-ms-summary": "Viewport width",
+            "description": "Viewport width in CSS pixels."
+          },
+          {
+            "name": "height",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 240,
+            "maximum": 1440,
+            "default": 900,
+            "x-ms-summary": "Viewport height",
+            "description": "Viewport height in CSS pixels."
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "png",
+              "jpeg"
+            ],
+            "default": "png",
+            "x-ms-summary": "Image format",
+            "description": "Binary image format returned by the action."
+          },
+          {
+            "name": "quality",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 85,
+            "x-ms-summary": "JPEG quality",
+            "description": "JPEG encoding quality. Use only when format is jpeg."
+          },
+          {
+            "name": "fullPage",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Full page",
+            "description": "Capture the bounded full document height instead of only the viewport."
+          },
+          {
+            "name": "scrollPage",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Activate lazy content",
+            "description": "Perform one bounded deterministic scroll before a full-page capture. Requires fullPage and does not click, type, or run caller-supplied actions."
+          },
+          {
+            "name": "darkMode",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Dark mode",
+            "description": "Emulate a dark color-scheme preference."
+          },
+          {
+            "name": "blockAds",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Block known ads",
+            "description": "Best-effort blocking of requests to known third-party ad hosts."
+          },
+          {
+            "name": "blockTrackers",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Block known trackers",
+            "description": "Best-effort blocking of requests to known third-party analytics and tracker hosts."
+          },
+          {
+            "name": "blockChats",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Block known chat widgets",
+            "description": "Best-effort blocking and hiding of known third-party chat widgets."
+          },
+          {
+            "name": "hideCookieBanners",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Hide cookie banners",
+            "description": "Hide common cookie-consent overlays without clicking consent or setting consent state."
+          },
+          {
+            "name": "hidePopups",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "default": false,
+            "x-ms-summary": "Hide common popups",
+            "description": "Hide common newsletter, signup, and discount popups without submitting them."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rendered image file.",
+            "schema": {
+              "$ref": "#/definitions/BinaryArtifact"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "429": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "502": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "504": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/v1/render": {
+      "post": {
+        "summary": "Render a page artifact",
+        "description": "Render one supported public page as a PNG, JPEG, or PDF file object with bounded readiness and cleanup controls. Only a successful render consumes monthly quota.",
+        "operationId": "RenderPage",
+        "x-ms-visibility": "important",
+        "produces": [
+          "image/png",
+          "image/jpeg",
+          "application/pdf"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "x-ms-summary": "Render request",
+            "description": "Public-page render request and bounded output options.",
+            "schema": {
+              "$ref": "#/definitions/RenderRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rendered image or PDF file.",
+            "schema": {
+              "$ref": "#/definitions/BinaryArtifact"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "413": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "429": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "502": {
+            "$ref": "#/responses/ErrorResponse"
+          },
+          "504": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    },
+    "/v1/usage": {
+      "get": {
+        "summary": "Get monthly usage",
+        "description": "Read the current plan, successful-render allowance, monthly counters, reset time, and informational continuation links. This action consumes no render quota and takes no payment.",
+        "operationId": "GetUsage",
+        "x-ms-visibility": "important",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Current plan and monthly usage.",
+            "schema": {
+              "$ref": "#/definitions/UsageResponse"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "ErrorResponse": {
+      "description": "Structured Latchshot error.",
+      "schema": {
+        "$ref": "#/definitions/ErrorEnvelope"
+      }
+    }
+  },
+  "definitions": {
+    "BinaryArtifact": {
+      "type": "object",
+      "required": [
+        "$content-type",
+        "$content"
+      ],
+      "properties": {
+        "$content-type": {
+          "type": "string",
+          "title": "Content type",
+          "description": "Artifact media type."
+        },
+        "$content": {
+          "type": "string",
+          "title": "File content",
+          "description": "Base64-encoded artifact bytes supplied by the connector runtime."
+        }
+      }
+    },
+    "RenderRequest": {
+      "type": "object",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048,
+          "x-ms-summary": "Public page URL",
+          "description": "Public HTTP or HTTPS page URL on port 80 or 443."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "screenshot",
+            "pdf"
+          ],
+          "default": "screenshot",
+          "x-ms-summary": "Artifact kind",
+          "description": "Artifact family to return."
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "png",
+            "jpeg",
+            "pdf"
+          ],
+          "x-ms-summary": "Artifact format",
+          "description": "Exact output format. PDF selects PDF rendering even when kind is omitted."
+        },
+        "quality": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 85,
+          "x-ms-summary": "JPEG quality",
+          "description": "JPEG encoding quality. Valid only for JPEG screenshots."
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 320,
+          "maximum": 2560,
+          "default": 1440,
+          "x-ms-summary": "Viewport width",
+          "description": "Viewport width in CSS pixels."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 240,
+          "maximum": 1440,
+          "default": 900,
+          "x-ms-summary": "Viewport height",
+          "description": "Viewport height in CSS pixels."
+        },
+        "scale": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2,
+          "default": 1,
+          "x-ms-summary": "Device scale",
+          "description": "Device scale factor used for image capture."
+        },
+        "fullPage": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Full page",
+          "description": "Capture the bounded full document height for screenshots."
+        },
+        "scrollPage": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Activate lazy content",
+          "description": "Perform one bounded deterministic scroll before a full-page screenshot. Requires fullPage."
+        },
+        "waitUntil": {
+          "type": "string",
+          "enum": [
+            "load",
+            "domcontentloaded",
+            "networkidle"
+          ],
+          "default": "domcontentloaded",
+          "x-ms-summary": "Readiness event",
+          "description": "Browser lifecycle event awaited before the optional delay."
+        },
+        "delay": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3000,
+          "default": 0,
+          "x-ms-summary": "Extra delay",
+          "description": "Additional wait in milliseconds after the readiness event."
+        },
+        "timeout": {
+          "type": "integer",
+          "minimum": 3000,
+          "maximum": 30000,
+          "default": 15000,
+          "x-ms-summary": "Navigation timeout",
+          "description": "Navigation timeout in milliseconds. A separate hard process deadline applies."
+        },
+        "darkMode": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Dark mode",
+          "description": "Emulate a dark color-scheme preference."
+        },
+        "reducedMotion": {
+          "type": "boolean",
+          "default": true,
+          "x-ms-summary": "Reduced motion",
+          "description": "Emulate reduced motion to improve capture stability."
+        },
+        "blockAds": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Block known ads",
+          "description": "Best-effort blocking of known third-party ad hosts."
+        },
+        "blockTrackers": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Block known trackers",
+          "description": "Best-effort blocking of known third-party analytics and tracker hosts."
+        },
+        "blockChats": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Block known chat widgets",
+          "description": "Best-effort blocking and hiding of known third-party chat widgets."
+        },
+        "hideCookieBanners": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Hide cookie banners",
+          "description": "Hide common cookie-consent overlays without clicking consent."
+        },
+        "hidePopups": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "Hide common popups",
+          "description": "Hide common newsletter, signup, and discount popups without submitting them."
+        },
+        "paper": {
+          "type": "string",
+          "enum": [
+            "A4",
+            "Letter",
+            "Legal"
+          ],
+          "default": "A4",
+          "x-ms-summary": "PDF paper",
+          "description": "Paper size used for PDF rendering."
+        },
+        "landscape": {
+          "type": "boolean",
+          "default": false,
+          "x-ms-summary": "PDF landscape",
+          "description": "Use landscape orientation for PDF rendering."
+        }
+      }
+    },
+    "UsageResponse": {
+      "type": "object",
+      "required": [
+        "customer",
+        "usage",
+        "links"
+      ],
+      "properties": {
+        "customer": {
+          "type": "object",
+          "required": [
+            "name",
+            "plan"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Display name attached to the key."
+            },
+            "plan": {
+              "type": "string",
+              "enum": [
+                "trial",
+                "launch",
+                "build",
+                "scale"
+              ],
+              "description": "Current plan identifier. Trial is displayed publicly as Free."
+            }
+          }
+        },
+        "usage": {
+          "type": "object",
+          "required": [
+            "period",
+            "plan",
+            "limit",
+            "remaining",
+            "resetAt",
+            "successful",
+            "failed",
+            "reserved",
+            "outputBytes",
+            "renderMs"
+          ],
+          "properties": {
+            "period": {
+              "type": "string",
+              "description": "Current UTC calendar month in YYYY-MM form."
+            },
+            "plan": {
+              "type": "string",
+              "enum": [
+                "trial",
+                "launch",
+                "build",
+                "scale"
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Successful renders included in the plan each UTC month."
+            },
+            "remaining": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Successful renders still available this month."
+            },
+            "resetAt": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Start of the next UTC month."
+            },
+            "successful": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "failed": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Failed reserved renders. These do not consume successful-render quota."
+            },
+            "reserved": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "outputBytes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "renderMs": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Aggregate successful render time this month in milliseconds."
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time",
+              "x-nullable": true
+            }
+          }
+        },
+        "upgradeRequest": {
+          "type": "object",
+          "x-nullable": true,
+          "description": "Latest paid-plan request attached to the key, or null."
+        },
+        "links": {
+          "type": "object",
+          "description": "Informational links. Reading them takes no payment and changes no plan.",
+          "properties": {
+            "plans": {
+              "type": "string",
+              "format": "uri"
+            },
+            "requestPaidPlan": {
+              "type": "string",
+              "format": "uri"
+            },
+            "requestPaidPlanDocs": {
+              "type": "string",
+              "format": "uri"
+            },
+            "implementationPilot": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        }
+      }
+    },
+    "ErrorEnvelope": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

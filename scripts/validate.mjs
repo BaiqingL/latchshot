@@ -5,6 +5,9 @@ const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
 const migrationForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/migration-fit.yml', import.meta.url), 'utf8');
 const implementationPilotForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/implementation-pilot.yml', import.meta.url), 'utf8');
 const safetyReviewForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/screenshot-safety-review.yml', import.meta.url), 'utf8');
+const powerPlatformDefinition = JSON.parse(await readFile(new URL('../integrations/power-platform/apiDefinition.swagger.json', import.meta.url), 'utf8'));
+const powerPlatformProperties = JSON.parse(await readFile(new URL('../integrations/power-platform/apiProperties.json', import.meta.url), 'utf8'));
+const powerPlatformReadme = await readFile(new URL('../integrations/power-platform/README.md', import.meta.url), 'utf8');
 const migrationPaths = [
   '/migrate.md',
   '/guides/migrate-from-apiflash.html',
@@ -53,6 +56,25 @@ const required = [
   [readme.includes('https://latchshot.fly.dev/guides/screenshot-api-backend.html'), 'README screenshot API backend guide is missing'],
   [readme.includes('https://latchshot.fly.dev/guides/full-page-screenshot-lazy-loading.html'), 'README lazy full-page guide is missing'],
   [readme.includes('https://latchshot.fly.dev/guides/ssrf-safe-screenshot-api.html'), 'README SSRF-safe screenshot guide is missing'],
+  [readme.includes('integrations/power-platform/README.md'), 'README Power Platform preview link is missing'],
+  [powerPlatformDefinition.swagger === '2.0', 'Power Platform contract must remain Swagger 2.0'],
+  [powerPlatformDefinition.host === 'latchshot.fly.dev' && powerPlatformDefinition.schemes?.length === 1 && powerPlatformDefinition.schemes[0] === 'https', 'Power Platform contract must use the fixed HTTPS production origin'],
+  [powerPlatformDefinition.securityDefinitions?.api_key?.type === 'apiKey' && powerPlatformDefinition.securityDefinitions?.api_key?.in === 'header' && powerPlatformDefinition.securityDefinitions?.api_key?.name === 'Authorization', 'Power Platform contract must keep the key in the Authorization header'],
+  [Object.values(powerPlatformDefinition.paths ?? {}).flatMap((path) => Object.values(path)).map((operation) => operation.operationId).filter(Boolean).sort().join(',') === 'CaptureScreenshot,GetUsage,RenderPage', 'Power Platform contract must expose exactly the three reviewed actions'],
+  [!Object.keys(powerPlatformDefinition.paths ?? {}).some((path) => /trial|upgrade|pilot|payment/i.test(path)), 'Power Platform contract must expose no issuance, upgrade, pilot, or payment action'],
+  [powerPlatformDefinition.paths?.['/v1/screenshot']?.get?.parameters?.find(({ name }) => name === 'url')?.required === true, 'Power Platform screenshot URL must remain required'],
+  [powerPlatformDefinition.definitions?.RenderRequest?.properties?.width?.minimum === spec.components?.schemas?.RenderRequest?.properties?.width?.minimum && powerPlatformDefinition.definitions?.RenderRequest?.properties?.width?.maximum === spec.components?.schemas?.RenderRequest?.properties?.width?.maximum, 'Power Platform width bounds must match the public API'],
+  [powerPlatformDefinition.definitions?.RenderRequest?.properties?.height?.minimum === spec.components?.schemas?.RenderRequest?.properties?.height?.minimum && powerPlatformDefinition.definitions?.RenderRequest?.properties?.height?.maximum === spec.components?.schemas?.RenderRequest?.properties?.height?.maximum, 'Power Platform height bounds must match the public API'],
+  [powerPlatformDefinition.definitions?.RenderRequest?.properties?.url?.maxLength === spec.components?.schemas?.RenderRequest?.properties?.url?.maxLength, 'Power Platform URL limit must match the public API'],
+  [powerPlatformDefinition.definitions?.RenderRequest?.properties?.timeout?.maximum === spec.components?.schemas?.RenderRequest?.properties?.timeout?.maximum && powerPlatformDefinition.definitions?.RenderRequest?.properties?.delay?.maximum === spec.components?.schemas?.RenderRequest?.properties?.delay?.maximum, 'Power Platform timing bounds must match the public API'],
+  [['blockAds', 'blockTrackers', 'blockChats', 'hideCookieBanners', 'hidePopups'].every((name) => powerPlatformDefinition.definitions?.RenderRequest?.properties?.[name]?.type === 'boolean'), 'Power Platform bounded cleanup controls are incomplete'],
+  [powerPlatformProperties.properties?.connectionParameters?.api_key?.type === 'securestring' && powerPlatformProperties.properties?.connectionParameters?.api_key?.uiDefinition?.constraints?.clearText === false, 'Power Platform connection key must remain a hidden secure string'],
+  [powerPlatformProperties.properties?.connectionParameters?.api_key?.uiDefinition?.description?.includes('Bearer '), 'Power Platform connection instructions must include the Bearer prefix'],
+  [powerPlatformReadme.includes('not a certified Microsoft connector') && powerPlatformReadme.includes('has not been exercised inside a live Power Platform tenant'), 'Power Platform preview/runtime evidence boundary is missing'],
+  [powerPlatformReadme.includes('Independent Publisher program is not an eligible shortcut') && powerPlatformReadme.includes('Certified Connector'), 'Power Platform owner-certification gate is missing'],
+  [powerPlatformReadme.includes('Bearer ls_live_replace_me') && powerPlatformReadme.includes('Never enter the key as a URL query parameter'), 'Power Platform secret-safe connection instructions are missing'],
+  [powerPlatformReadme.includes('Get monthly usage') && powerPlatformReadme.includes('Capture a screenshot') && powerPlatformReadme.includes('Render a page artifact'), 'Power Platform acceptance matrix is incomplete'],
+  [powerPlatformReadme.includes('takes no payment') && powerPlatformReadme.includes('owner-managed'), 'Power Platform payment boundary is missing'],
   [readme.includes('implementation-pilot.html#request-pilot'), 'README no-account implementation-pilot path is missing'],
   [readme.includes('https://latchshot.fly.dev/screenshot-api-cost-calculator.html') && readme.includes('Inputs and results are not submitted or stored'), 'README local cost-calculator path or data boundary is missing'],
   [implementationPilotForm.includes('This issue is public.') && implementationPilotForm.includes('Never include an API key'), 'implementation-pilot form public safety warning is missing'],
