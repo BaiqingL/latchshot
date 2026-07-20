@@ -34,7 +34,7 @@ The response body is the artifact. Render timing, navigation state, and remainin
 
 ## Contract
 
-Latchshot supports public HTTP and HTTPS pages on ports 80 and 443. It bounds viewport size, delay, deadline, concurrency, queue depth, and output size. Private, loopback, link-local, special-use, and mixed public/private DNS targets are rejected.
+Latchshot supports public HTTP and HTTPS pages on ports 80 and 443. It bounds viewport size, delay, deadline, concurrency, queue depth, and output size. Optional best-effort controls can block known third-party ad/tracker hosts and hide common cookie-consent overlays without accepting consent. Private, loopback, link-local, special-use, and mixed public/private DNS targets are rejected.
 
 It intentionally does not support:
 

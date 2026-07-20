@@ -75,7 +75,10 @@
           { "name": "height", "in": "query", "description": "Viewport height in CSS pixels. Ignored for the final artifact when fullPage is true.", "schema": { "type": "integer", "minimum": 240, "maximum": 1440, "default": 900 } },
           { "name": "format", "in": "query", "description": "Binary image format returned in the response body.", "schema": { "type": "string", "enum": ["png", "jpeg"], "default": "png" } },
           { "name": "fullPage", "in": "query", "description": "When true, capture the bounded full document height instead of only the viewport.", "schema": { "type": "boolean", "default": false } },
-          { "name": "darkMode", "in": "query", "description": "Emulate a dark color-scheme preference for the page.", "schema": { "type": "boolean", "default": false } }
+          { "name": "darkMode", "in": "query", "description": "Emulate a dark color-scheme preference for the page.", "schema": { "type": "boolean", "default": false } },
+          { "name": "blockAds", "in": "query", "description": "Best-effort blocking of requests to known third-party ad hosts.", "schema": { "type": "boolean", "default": false } },
+          { "name": "blockTrackers", "in": "query", "description": "Best-effort blocking of requests to known third-party analytics and tracker hosts.", "schema": { "type": "boolean", "default": false } },
+          { "name": "hideCookieBanners", "in": "query", "description": "Hide common cookie-consent overlays after loading. This does not click consent or set consent cookies.", "schema": { "type": "boolean", "default": false } }
         ],
         "responses": {
           "200": {
@@ -281,6 +284,9 @@
           "timeout": { "type": "integer", "minimum": 3000, "maximum": 30000, "default": 15000, "description": "Navigation timeout in milliseconds. A separate hard process deadline still applies." },
           "darkMode": { "type": "boolean", "default": false, "description": "Emulate a dark color-scheme preference." },
           "reducedMotion": { "type": "boolean", "default": true, "description": "Emulate reduced motion to improve capture stability." },
+          "blockAds": { "type": "boolean", "default": false, "description": "Best-effort blocking of requests to known third-party ad hosts. This is not anti-bot bypass." },
+          "blockTrackers": { "type": "boolean", "default": false, "description": "Best-effort blocking of requests to known third-party analytics and tracker hosts." },
+          "hideCookieBanners": { "type": "boolean", "default": false, "description": "Hide common cookie-consent overlays after loading. This does not click consent, set consent cookies, or bypass access controls." },
           "paper": { "type": "string", "enum": ["A4", "Letter", "Legal"], "default": "A4", "description": "Paper size used for PDF rendering." },
           "landscape": { "type": "boolean", "default": false, "description": "Use landscape orientation for PDF rendering." }
         }
