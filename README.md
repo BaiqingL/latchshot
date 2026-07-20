@@ -81,6 +81,7 @@ If the contract fits but you do not want to wire it yourself, Latchshot offers a
 - [Gemini CLI extension](https://github.com/BaiqingL/latchshot-gemini-cli)
 - [Dify plugin](https://github.com/BaiqingL/latchshot-dify)
 - [n8n workflow](https://github.com/BaiqingL/latchshot-n8n)
+- [Supabase Edge Function screenshot guide](https://latchshot.fly.dev/guides/supabase-edge-function-screenshot.html)
 - [VS Code, Cursor, goose, and other recipes](https://latchshot.fly.dev/integrations.md)
 
 ## Examples
