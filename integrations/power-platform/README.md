@@ -20,7 +20,7 @@ Latchshot owns the underlying API, so Microsoft's Independent Publisher program 
 ## Prerequisites
 
 1. A Power Platform environment where you are authorized to create custom connectors.
-2. One [card-free Latchshot API key with 100 successful renders each UTC month](https://latchshot.fly.dev/#trial).
+2. One [card-free Latchshot API key with 100 successful renders each UTC month](https://latchshot.fly.dev/?intent=powerplatform#trial).
 3. A secret store or connection record controlled by the environment owner.
 
 Do not paste a key into a flow definition, action input, screenshot URL, source repository, issue, or run log.

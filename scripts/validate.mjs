@@ -74,6 +74,7 @@ const required = [
   [powerPlatformReadme.includes('Independent Publisher program is not an eligible shortcut') && powerPlatformReadme.includes('Certified Connector'), 'Power Platform owner-certification gate is missing'],
   [powerPlatformReadme.includes('Bearer ls_live_replace_me') && powerPlatformReadme.includes('Never enter the key as a URL query parameter'), 'Power Platform secret-safe connection instructions are missing'],
   [powerPlatformReadme.includes('Get monthly usage') && powerPlatformReadme.includes('Capture a screenshot') && powerPlatformReadme.includes('Render a page artifact'), 'Power Platform acceptance matrix is incomplete'],
+  [powerPlatformReadme.includes('https://latchshot.fly.dev/?intent=powerplatform#trial'), 'Power Platform Free-plan link must preserve channel attribution'],
   [powerPlatformReadme.includes('takes no payment') && powerPlatformReadme.includes('owner-managed'), 'Power Platform payment boundary is missing'],
   [readme.includes('implementation-pilot.html#request-pilot'), 'README no-account implementation-pilot path is missing'],
   [readme.includes('https://latchshot.fly.dev/screenshot-api-cost-calculator.html') && readme.includes('Inputs and results are not submitted or stored'), 'README local cost-calculator path or data boundary is missing'],
