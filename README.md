@@ -77,6 +77,7 @@ If the contract fits but you do not want to wire it yourself, Latchshot offers a
 - [CLI and Node client](https://github.com/BaiqingL/latchshot-cli)
 - [GitHub Action](https://github.com/BaiqingL/latchshot-action)
 - [Hosted MCP contract](https://github.com/BaiqingL/latchshot-mcp)
+- [Accepted Open Connector provider and setup](https://latchshot.fly.dev/integrations.md#open-connector)
 - [Claude Code plugin](https://github.com/BaiqingL/latchshot-claude-code)
 - [Gemini CLI extension](https://github.com/BaiqingL/latchshot-gemini-cli)
 - [Dify plugin](https://github.com/BaiqingL/latchshot-dify)
