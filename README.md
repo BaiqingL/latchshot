@@ -31,7 +31,7 @@ curl --fail-with-body https://latchshot.fly.dev/v1/render \
   --output capture.jpg
 ```
 
-The response body is the artifact. Render timing, navigation state, and remaining quota are returned in headers.
+The response body is the artifact. Render timing, navigation state, remaining quota, and read-only usage/paid-plan/implementation-pilot URLs are returned in headers. Those URLs take no payment, change no plan, and start no implementation work.
 
 ## Contract
 

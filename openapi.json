@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Latchshot API",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Render public HTTP and HTTPS web pages as PNG or JPEG screenshots and PDF documents. Targets are checked against private and special-use networks before rendering. Create one recurring Free-plan key per email, then send that key as an HTTPS Bearer token. Only successful renders consume monthly quota; automatic overages are disabled.",
     "license": { "name": "Proprietary", "identifier": "LicenseRef-Proprietary" }
   },
@@ -121,7 +121,10 @@
               "X-Latchshot-Render-Ms": { "$ref": "#/components/headers/RenderMs" },
               "X-Latchshot-Navigation": { "$ref": "#/components/headers/Navigation" },
               "X-Quota-Remaining": { "$ref": "#/components/headers/QuotaRemaining" },
-              "X-Quota-Reset": { "$ref": "#/components/headers/QuotaReset" }
+              "X-Quota-Reset": { "$ref": "#/components/headers/QuotaReset" },
+              "X-Latchshot-Usage-URL": { "$ref": "#/components/headers/UsageUrl" },
+              "X-Latchshot-Paid-Plan-URL": { "$ref": "#/components/headers/PaidPlanUrl" },
+              "X-Latchshot-Implementation-Pilot-URL": { "$ref": "#/components/headers/ImplementationPilotUrl" }
             },
             "content": {
               "image/png": { "schema": { "type": "string", "format": "binary" } },
@@ -162,7 +165,10 @@
               "X-Latchshot-Render-Ms": { "$ref": "#/components/headers/RenderMs" },
               "X-Latchshot-Navigation": { "$ref": "#/components/headers/Navigation" },
               "X-Quota-Remaining": { "$ref": "#/components/headers/QuotaRemaining" },
-              "X-Quota-Reset": { "$ref": "#/components/headers/QuotaReset" }
+              "X-Quota-Reset": { "$ref": "#/components/headers/QuotaReset" },
+              "X-Latchshot-Usage-URL": { "$ref": "#/components/headers/UsageUrl" },
+              "X-Latchshot-Paid-Plan-URL": { "$ref": "#/components/headers/PaidPlanUrl" },
+              "X-Latchshot-Implementation-Pilot-URL": { "$ref": "#/components/headers/ImplementationPilotUrl" }
             },
             "content": {
               "image/png": { "schema": { "type": "string", "format": "binary" } },
@@ -235,7 +241,10 @@
       "RenderMs": { "description": "End-to-end render duration in milliseconds.", "schema": { "type": "integer", "minimum": 0 } },
       "Navigation": { "description": "Whether navigation completed normally or reached its bounded timeout after a usable page response.", "schema": { "type": "string", "enum": ["complete", "timed-out"] } },
       "QuotaRemaining": { "description": "Successful renders remaining in the current UTC calendar month after this response.", "schema": { "type": "integer", "minimum": 0 } },
-      "QuotaReset": { "description": "UTC date-time when the monthly successful-render allowance replenishes.", "schema": { "type": "string", "format": "date-time" } }
+      "QuotaReset": { "description": "UTC date-time when the monthly successful-render allowance replenishes.", "schema": { "type": "string", "format": "date-time" } },
+      "UsageUrl": { "description": "Authenticated read-only plan, quota, request-state, and continuation endpoint. Following this URL does not consume render quota or change a plan.", "schema": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/v1/usage" } },
+      "PaidPlanUrl": { "description": "Optional owner-managed paid-plan request form. Following this URL does not take payment or change a plan.", "schema": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/#upgrade" } },
+      "ImplementationPilotUrl": { "description": "Optional bounded implementation-pilot contract. Following this URL starts neither payment nor implementation work.", "schema": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/implementation-pilot.html" } }
     },
     "schemas": {
       "PilotRequest": {

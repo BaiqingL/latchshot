@@ -28,6 +28,13 @@ const required = [
   [['blockAds', 'blockTrackers', 'blockChats', 'hideCookieBanners', 'hidePopups'].every((name) => spec.components?.schemas?.RenderRequest?.properties?.[name]?.type === 'boolean'), 'bounded cleanup controls are missing from the render contract'],
   [spec.components?.schemas?.RenderRequest?.properties?.quality?.minimum === 1 && spec.components?.schemas?.RenderRequest?.properties?.quality?.maximum === 100, 'bounded JPEG quality is missing from the render contract'],
   [spec.components?.schemas?.UsageResponse?.properties?.links?.properties?.implementationPilot?.const === 'https://latchshot.fly.dev/implementation-pilot.html', 'authenticated implementation-pilot continuation is missing'],
+  [['/v1/screenshot', '/v1/render'].every((path) => {
+    const operation = path === '/v1/screenshot' ? spec.paths?.[path]?.get : spec.paths?.[path]?.post;
+    const headers = operation?.responses?.['200']?.headers;
+    return headers?.['X-Latchshot-Usage-URL']?.$ref === '#/components/headers/UsageUrl'
+      && headers?.['X-Latchshot-Paid-Plan-URL']?.$ref === '#/components/headers/PaidPlanUrl'
+      && headers?.['X-Latchshot-Implementation-Pilot-URL']?.$ref === '#/components/headers/ImplementationPilotUrl';
+  }), 'authenticated render continuation headers are missing'],
   [readme.includes('?intent=githubcore#trial'), 'README Free-plan link must preserve repository attribution'],
   [migrationPaths.every((path) => readme.includes(`https://latchshot.fly.dev${path}`)), 'README provider migration index is incomplete'],
   [readme.includes("Keep the current provider for every job that depends on a guide's stop list."), 'README migration stop-list boundary is missing'],
