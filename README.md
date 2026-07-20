@@ -55,7 +55,7 @@ Use a browser you control when the job needs authentication, private connectivit
 | Build | 12,000 | $49 |
 | Scale | 50,000 | $149 |
 
-Only successful direct renders consume quota. Failed renders do not, and automatic overages are disabled. Authenticated usage responses include stable plans, upgrade-form, and upgrade-documentation links so REST and MCP clients can expose the optional next step. Existing key holders can request a paid tier through the [production upgrade form](https://latchshot.fly.dev/#upgrade); payment and activation are handled separately by the owner.
+Only successful direct renders consume quota. Failed renders do not, and automatic overages are disabled. Authenticated usage responses include stable plans, upgrade-form, upgrade-documentation, and bounded [$99 implementation-pilot](https://latchshot.fly.dev/migrate.md#optional-99-implementation-pilot) links so REST and MCP clients can expose the optional next step. Existing key holders can request a paid tier through the [production upgrade form](https://latchshot.fly.dev/#upgrade); payment, activation, and implementation start are handled separately by the owner.
 
 ## Provider migration
 

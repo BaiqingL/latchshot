@@ -185,10 +185,10 @@
         "summary": "Read current monthly usage",
         "tags": ["Access"],
         "security": [{ "bearerAuth": [] }],
-        "description": "Returns the authenticated key's current plan, successful-render allowance, consumption counters, next UTC calendar-month reset time, any paid-plan request attached to the key, and stable self-serve plan and upgrade links. This request does not consume render quota or initiate an upgrade.",
+        "description": "Returns the authenticated key's current plan, successful-render allowance, consumption counters, next UTC calendar-month reset time, any paid-plan request attached to the key, and stable plan, upgrade, and implementation-pilot links. This request does not consume render quota or initiate an upgrade; it does not take payment or start implementation work.",
         "responses": {
           "200": {
-            "description": "Current plan, quota usage, and optional paid-plan request",
+            "description": "Current plan, quota usage, optional paid-plan request, and informational continuation links",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UsageResponse" } } }
           },
           "401": { "$ref": "#/components/responses/Error" }
@@ -335,12 +335,13 @@
           },
           "links": {
             "type": "object",
-            "description": "Stable self-serve continuation links. They are informational and do not take payment or initiate an upgrade.",
-            "required": ["plans", "requestPaidPlan", "requestPaidPlanDocs"],
+            "description": "Stable self-serve continuation links. They are informational and do not take payment, initiate an upgrade, or start implementation work.",
+            "required": ["plans", "requestPaidPlan", "requestPaidPlanDocs", "implementationPilot"],
             "properties": {
               "plans": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/#pricing" },
               "requestPaidPlan": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/#upgrade" },
-              "requestPaidPlanDocs": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/docs.md#request-a-paid-plan" }
+              "requestPaidPlanDocs": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/docs.md#request-a-paid-plan" },
+              "implementationPilot": { "type": "string", "format": "uri", "const": "https://latchshot.fly.dev/migrate.md#optional-99-implementation-pilot", "description": "Describes the optional bounded $99 implementation service. The link itself starts neither work nor payment." }
             }
           }
         }
