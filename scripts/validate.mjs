@@ -54,6 +54,7 @@ const required = [
   [readme.includes('https://latchshot.fly.dev/guides/full-page-screenshot-lazy-loading.html'), 'README lazy full-page guide is missing'],
   [readme.includes('https://latchshot.fly.dev/guides/ssrf-safe-screenshot-api.html'), 'README SSRF-safe screenshot guide is missing'],
   [readme.includes('implementation-pilot.html#request-pilot'), 'README no-account implementation-pilot path is missing'],
+  [readme.includes('https://latchshot.fly.dev/screenshot-api-cost-calculator.html') && readme.includes('Inputs and results are not submitted or stored'), 'README local cost-calculator path or data boundary is missing'],
   [implementationPilotForm.includes('This issue is public.') && implementationPilotForm.includes('Never include an API key'), 'implementation-pilot form public safety warning is missing'],
   [implementationPilotForm.includes('Public GitHub repository URL') && implementationPilotForm.includes('Call-site file path'), 'implementation-pilot form repository scope is missing'],
   [implementationPilotForm.includes('JavaScript') && implementationPilotForm.includes('TypeScript') && implementationPilotForm.includes('Python'), 'implementation-pilot form language boundary is missing'],
