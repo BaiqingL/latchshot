@@ -1,0 +1,103 @@
+name: $149 screenshot endpoint safety review fit
+description: Check one public-repository screenshot route for the fixed-scope safety review.
+title: "[Safety review]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Share only a public repository and non-sensitive source details. Never include an API key, authorization header, private or signed URL, customer data, production detail, payment information, or sensitive artifact.
+
+        This form is a free fit check. Submitting it does not take payment, reserve work, grant repository access, or authorize a code change. The owner must separately confirm fit, exact scope, payment, and the start.
+
+        The fixed $149 scope covers one JavaScript, TypeScript, or Python screenshot endpoint: a risk-ranked report, one focused patch, regression tests, verification and rollback notes, and one in-scope review revision. It is not penetration testing, compliance certification, legal advice, an SLA, or a security guarantee.
+
+  - type: input
+    id: repository
+    attributes:
+      label: Public GitHub repository URL
+      description: The repository must be public and under your control.
+      placeholder: https://github.com/owner/repository
+    validations:
+      required: true
+
+  - type: input
+    id: route_path
+    attributes:
+      label: Screenshot route file path
+      description: Point to the one existing route or worker file that accepts or renders a URL.
+      placeholder: src/routes/screenshot.ts
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Route language
+      options:
+        - JavaScript
+        - TypeScript
+        - Python
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Browser or provider runtime
+      options:
+        - Local Playwright
+        - Local Puppeteer
+        - Browserless or remote CDP
+        - HTTP screenshot provider
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: primary_concern
+    attributes:
+      label: Primary concern
+      options:
+        - SSRF and internal network access
+        - DNS rebinding
+        - Redirects and subresources
+        - Authorization and secrets
+        - Full endpoint review
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_controls
+    attributes:
+      label: Current controls
+      description: Describe URL validation, DNS checks, redirect/subrequest handling, egress policy, browser isolation, timeouts, and caller authorization. Write “not sure” where appropriate.
+    validations:
+      required: true
+
+  - type: textarea
+    id: test_evidence
+    attributes:
+      label: Existing test evidence
+      description: List current happy-path and rejection tests, or write “none.” Do not paste sensitive logs.
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired_outcome
+    attributes:
+      label: Desired outcome
+      description: State the findings, patch, tests, or handoff that would make this review useful.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Authority and start boundary
+      options:
+        - label: I control this public repository and can review, merge, deploy, and roll back the proposed change.
+          required: true
+        - label: I removed credentials, private or signed URLs, customer data, production details, payment information, and sensitive artifacts.
+          required: true
+        - label: I understand that no payment or work starts until the owner separately confirms fit, exact scope, payment, and the start.
+          required: true

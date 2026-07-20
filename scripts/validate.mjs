@@ -4,6 +4,7 @@ const spec = JSON.parse(await readFile(new URL('../openapi.json', import.meta.ur
 const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
 const migrationForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/migration-fit.yml', import.meta.url), 'utf8');
 const implementationPilotForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/implementation-pilot.yml', import.meta.url), 'utf8');
+const safetyReviewForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/screenshot-safety-review.yml', import.meta.url), 'utf8');
 const migrationPaths = [
   '/migrate.md',
   '/guides/migrate-from-apiflash.html',
@@ -22,6 +23,9 @@ const required = [
   [spec.paths?.['/api/pilot-requests']?.post?.security?.length === 0, 'implementation-pilot request must remain unauthenticated'],
   [spec.paths?.['/api/pilot-requests']?.post?.description?.includes('Does not issue an API key, take payment, reserve work, or authorize a repository change.'), 'implementation-pilot no-action boundary is missing'],
   [spec.components?.schemas?.PilotRequest?.required?.includes('replyConsent') && spec.components?.schemas?.PilotRequest?.properties?.startBoundaryAcknowledged?.const === true, 'implementation-pilot consent/start schema is missing'],
+  [spec.paths?.['/api/safety-review-requests']?.post?.security?.length === 0, 'screenshot safety-review request must remain unauthenticated'],
+  [spec.paths?.['/api/safety-review-requests']?.post?.description?.includes('Does not grant repository access, take payment, reserve work, or authorize a code change.'), 'screenshot safety-review no-action boundary is missing'],
+  [spec.components?.schemas?.SafetyReviewRequest?.required?.includes('replyConsent') && spec.components?.schemas?.SafetyReviewRequest?.properties?.startBoundaryAcknowledged?.const === true, 'screenshot safety-review consent/start schema is missing'],
   [spec.paths?.['/v1/render']?.post?.security?.[0]?.bearerAuth, 'render endpoint must require Bearer auth'],
   [spec.paths?.['/v1/usage']?.get?.security?.[0]?.bearerAuth, 'usage endpoint must require Bearer auth'],
   [spec.paths?.['/v1/upgrade-requests']?.post?.security?.[0]?.bearerAuth, 'upgrade endpoint must require Bearer auth'],
@@ -55,6 +59,13 @@ const required = [
   [implementationPilotForm.includes('JavaScript') && implementationPilotForm.includes('TypeScript') && implementationPilotForm.includes('Python'), 'implementation-pilot form language boundary is missing'],
   [implementationPilotForm.includes('Provider behavior that must be preserved') && implementationPilotForm.includes('Public acceptance sample'), 'implementation-pilot form acceptance qualification is missing'],
   [implementationPilotForm.includes('does not take payment') && implementationPilotForm.includes('no payment or work starts'), 'implementation-pilot form owner-confirmed start boundary is missing'],
+  [readme.includes('https://latchshot.fly.dev/screenshot-safety-review.html'), 'README screenshot safety-review offer is missing'],
+  [readme.includes('issues/new?template=screenshot-safety-review.yml'), 'README screenshot safety-review form path is missing'],
+  [safetyReviewForm.includes('This issue is public.') && safetyReviewForm.includes('Never include an API key'), 'safety-review form public safety warning is missing'],
+  [safetyReviewForm.includes('Public GitHub repository URL') && safetyReviewForm.includes('Screenshot route file path'), 'safety-review form repository scope is missing'],
+  [safetyReviewForm.includes('JavaScript') && safetyReviewForm.includes('TypeScript') && safetyReviewForm.includes('Python'), 'safety-review language boundary is missing'],
+  [safetyReviewForm.includes('risk-ranked report') && safetyReviewForm.includes('regression tests'), 'safety-review deliverables are missing'],
+  [safetyReviewForm.includes('does not take payment') && safetyReviewForm.includes('no payment or work starts'), 'safety-review owner-confirmed start boundary is missing'],
   [readme.includes('The hosted renderer source is not published here.'), 'repository scope boundary is missing'],
   [!readme.includes('ls_live_') || readme.includes("ls_live_replace_me"), 'README may contain an API key'],
 ];

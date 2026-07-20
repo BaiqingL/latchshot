@@ -75,6 +75,8 @@ If the contract fits but you do not want to wire it yourself, Latchshot offers a
 
 After reviewing the exact boundary, use the [no-account implementation-pilot request](https://latchshot.fly.dev/implementation-pilot.html#request-pilot) with the repository, call-site path, non-secret request contract, required behavior, volume, and public acceptance sample. A [public GitHub pilot form](https://github.com/BaiqingL/latchshot/issues/new?template=implementation-pilot.yml) remains available for a public review thread. Neither path takes payment or authorizes work.
 
+Already operate a screenshot endpoint? The fixed-scope [$149 screenshot endpoint safety review](https://latchshot.fly.dev/screenshot-safety-review.html) covers one public-repository JavaScript, TypeScript, or Python route with a risk-ranked report, focused patch, regression tests, and residual-risk handoff. Use the [no-account intake](https://latchshot.fly.dev/screenshot-safety-review.html#request-review) or the [public GitHub fit form](https://github.com/BaiqingL/latchshot/issues/new?template=screenshot-safety-review.yml). Neither path takes payment, grants repository access, or starts work.
+
 ## Integrations
 
 - [CLI and Node client](https://github.com/BaiqingL/latchshot-cli)

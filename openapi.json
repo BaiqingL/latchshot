@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Latchshot API",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Render public HTTP and HTTPS web pages as PNG or JPEG screenshots and PDF documents. Targets are checked against private and special-use networks before rendering. Create one recurring Free-plan key per email, then send that key as an HTTPS Bearer token. Only successful renders consume monthly quota; automatic overages are disabled.",
     "license": { "name": "Proprietary", "identifier": "LicenseRef-Proprietary" }
   },
@@ -17,7 +17,7 @@
     { "name": "Access", "description": "Create a Free-plan key and inspect its quota." },
     { "name": "Rendering", "description": "Capture supported public web pages as image or PDF artifacts." },
     { "name": "Plans", "description": "Request a higher paid quota without replacing the current key." },
-    { "name": "Implementation", "description": "Request owner review of one bounded public-repository implementation pilot." },
+    { "name": "Implementation", "description": "Request owner review of bounded public-repository implementation services." },
     { "name": "Service", "description": "Inspect service and render-queue health." }
   ],
   "paths": {
@@ -70,6 +70,36 @@
           "200": {
             "description": "Existing request for this email and repository updated for owner review",
             "content": { "application/json": { "schema": { "$ref": "#/components/schemas/PilotRequestResponse" } } }
+          },
+          "400": { "$ref": "#/components/responses/Error" },
+          "413": { "$ref": "#/components/responses/Error" },
+          "429": { "$ref": "#/components/responses/Error" }
+        }
+      }
+    },
+    "/api/safety-review-requests": {
+      "post": {
+        "operationId": "requestScreenshotSafetyReview",
+        "summary": "Request owner review of one screenshot endpoint",
+        "tags": ["Implementation"],
+        "security": [],
+        "description": "Records one deduplicated, owner-reviewed request for the fixed-scope $149 screenshot endpoint safety review. Requires one exact public GitHub repository, one JavaScript/TypeScript/Python route, non-secret control and test details, explicit repository authority and reply consent, and acknowledgment that payment and work start only after separate owner confirmation. Does not grant repository access, take payment, reserve work, or authorize a code change. Limited to three attempts per client IP per hour.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SafetyReviewRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New safety review request recorded for owner review",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SafetyReviewRequestResponse" } } }
+          },
+          "200": {
+            "description": "Existing request for this email and repository updated for owner review",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/SafetyReviewRequestResponse" } } }
           },
           "400": { "$ref": "#/components/responses/Error" },
           "413": { "$ref": "#/components/responses/Error" },
@@ -287,6 +317,45 @@
         "required": ["request", "notice"],
         "properties": {
           "request": { "$ref": "#/components/schemas/PilotRequestStatus" },
+          "notice": { "type": "string", "description": "Confirms owner review and the no-payment/no-work-start boundary." }
+        }
+      },
+      "SafetyReviewRequest": {
+        "type": "object",
+        "required": ["email", "repositoryUrl", "routePath", "language", "runtime", "primaryConcern", "currentControls", "testEvidence", "desiredOutcome", "repositoryAuthority", "safetyAcknowledged", "startBoundaryAcknowledged", "replyConsent"],
+        "properties": {
+          "email": { "type": "string", "format": "email", "maxLength": 254, "description": "Address the owner may use only to reply about this safety-review request." },
+          "repositoryUrl": { "type": "string", "format": "uri", "maxLength": 500, "pattern": "^https://github\\.com/[^/]+/[^/]+(?:\\.git)?$", "description": "Exact public GitHub repository under the requester's control." },
+          "routePath": { "type": "string", "maxLength": 500, "description": "One relative repository file path for the existing screenshot endpoint or worker." },
+          "language": { "type": "string", "enum": ["JavaScript", "TypeScript", "Python"] },
+          "runtime": { "type": "string", "enum": ["Local Playwright", "Local Puppeteer", "Browserless or remote CDP", "HTTP screenshot provider", "Other"] },
+          "primaryConcern": { "type": "string", "enum": ["SSRF and internal network access", "DNS rebinding", "Redirects and subresources", "Authorization and secrets", "Full endpoint review"] },
+          "currentControls": { "type": "string", "maxLength": 1500, "description": "Non-secret current URL, network, browser, resource, and caller controls." },
+          "testEvidence": { "type": "string", "maxLength": 1000, "description": "Non-sensitive description of current happy-path and rejection tests, or none." },
+          "desiredOutcome": { "type": "string", "maxLength": 1000, "description": "Requested risk report, focused patch, regression tests, and handoff outcome." },
+          "repositoryAuthority": { "type": "boolean", "const": true, "description": "Confirms authority to review, merge, deploy, and roll back the public repository change." },
+          "safetyAcknowledged": { "type": "boolean", "const": true, "description": "Confirms removal of credentials, private or signed URLs, customer data, production details, payment information, and sensitive artifacts." },
+          "startBoundaryAcknowledged": { "type": "boolean", "const": true, "description": "Confirms that no payment or work starts before separate owner confirmation." },
+          "replyConsent": { "type": "boolean", "const": true, "description": "Allows the owner to email only about this safety-review request." }
+        }
+      },
+      "SafetyReviewRequestStatus": {
+        "type": "object",
+        "required": ["id", "repositoryUrl", "routePath", "status", "createdAt", "updatedAt"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1 },
+          "repositoryUrl": { "type": "string", "format": "uri" },
+          "routePath": { "type": "string" },
+          "status": { "type": "string", "enum": ["new", "contacted", "fit_confirmed", "declined"] },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "SafetyReviewRequestResponse": {
+        "type": "object",
+        "required": ["request", "notice"],
+        "properties": {
+          "request": { "$ref": "#/components/schemas/SafetyReviewRequestStatus" },
           "notice": { "type": "string", "description": "Confirms owner review and the no-payment/no-work-start boundary." }
         }
       },
