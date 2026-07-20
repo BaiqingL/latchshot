@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 const spec = JSON.parse(await readFile(new URL('../openapi.json', import.meta.url), 'utf8'));
 const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
 const migrationForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/migration-fit.yml', import.meta.url), 'utf8');
+const implementationPilotForm = await readFile(new URL('../.github/ISSUE_TEMPLATE/implementation-pilot.yml', import.meta.url), 'utf8');
 const migrationPaths = [
   '/migrate.md',
   '/guides/migrate-from-apiflash.html',
@@ -33,6 +34,12 @@ const required = [
   [migrationForm.includes('Provider behavior that must be preserved'), 'migration form stop-list qualification is missing'],
   [migrationForm.includes('Browserless'), 'migration form Browserless provider option is missing'],
   [migrationForm.includes('Expected successful captures per UTC month'), 'migration form volume qualification is missing'],
+  [readme.includes('issues/new?template=implementation-pilot.yml'), 'README implementation-pilot form path is missing'],
+  [implementationPilotForm.includes('This issue is public.') && implementationPilotForm.includes('Never include an API key'), 'implementation-pilot form public safety warning is missing'],
+  [implementationPilotForm.includes('Public GitHub repository URL') && implementationPilotForm.includes('Call-site file path'), 'implementation-pilot form repository scope is missing'],
+  [implementationPilotForm.includes('JavaScript') && implementationPilotForm.includes('TypeScript') && implementationPilotForm.includes('Python'), 'implementation-pilot form language boundary is missing'],
+  [implementationPilotForm.includes('Provider behavior that must be preserved') && implementationPilotForm.includes('Public acceptance sample'), 'implementation-pilot form acceptance qualification is missing'],
+  [implementationPilotForm.includes('does not take payment') && implementationPilotForm.includes('no payment or work starts'), 'implementation-pilot form owner-confirmed start boundary is missing'],
   [readme.includes('The hosted renderer source is not published here.'), 'repository scope boundary is missing'],
   [!readme.includes('ls_live_') || readme.includes("ls_live_replace_me"), 'README may contain an API key'],
 ];

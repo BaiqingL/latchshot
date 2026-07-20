@@ -1,0 +1,107 @@
+name: $99 implementation pilot fit
+description: Check one public-repository backend screenshot call for the fixed-scope implementation pilot.
+title: "[Implementation pilot]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Share only a public repository and non-sensitive request details. Never include an API key, authorization header, private or signed URL, customer data, payment details, or sensitive artifact.
+
+        This form is a free fit check. Submitting it does not take payment, reserve work, or authorize a repository change. The owner must separately confirm fit, exact scope, payment, and the start.
+
+  - type: dropdown
+    id: provider
+    attributes:
+      label: Current provider
+      options:
+        - ApiFlash
+        - ScreenshotMachine
+        - ScreenshotOne
+        - Urlbox
+        - Browserless
+        - Local Playwright or Puppeteer
+        - Another provider
+        - Not implemented yet
+    validations:
+      required: true
+
+  - type: input
+    id: repository
+    attributes:
+      label: Public GitHub repository URL
+      description: The repository must be public and under your control.
+      placeholder: https://github.com/owner/repository
+    validations:
+      required: true
+
+  - type: input
+    id: call_site
+    attributes:
+      label: Call-site file path
+      description: Point to the one existing backend file that makes the provider request.
+      placeholder: src/jobs/capture.ts
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Call-site language
+      options:
+        - JavaScript
+        - TypeScript
+        - Python
+    validations:
+      required: true
+
+  - type: textarea
+    id: current_contract
+    attributes:
+      label: Current request and output behavior
+      description: Describe where the backend call runs, the non-secret request shape, the synchronous artifact returned, and what the application does with those bytes.
+      placeholder: A trusted worker sends one public URL and receives a 1200×630 PNG response, then writes the returned bytes to application-owned object storage.
+    validations:
+      required: true
+
+  - type: textarea
+    id: required_behavior
+    attributes:
+      label: Provider behavior that must be preserved
+      description: List required cache, delivery, browser-state, selection, storage, or error-contract behavior. Write “none” if the call needs only synchronous PNG, JPEG, or PDF bytes.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: volume
+    attributes:
+      label: Expected successful captures per UTC month
+      options:
+        - 1–100
+        - 101–2,500
+        - 2,501–12,000
+        - 12,001–50,000
+        - More than 50,000
+        - Not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_sample
+    attributes:
+      label: Public acceptance sample
+      description: Describe one maintainer-approved public page and the artifact format and dimensions that would prove the patch works. Do not include a private, signed, customer, or sensitive URL.
+      placeholder: The repository's public documentation homepage rendered as a 1440×900 PNG.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Authority and start boundary
+      options:
+        - label: I control this public repository and can review, merge, deploy, and roll back the proposed change.
+          required: true
+        - label: I removed credentials, private or signed URLs, customer data, payment details, and sensitive artifacts.
+          required: true
+        - label: I understand that no payment or work starts until the owner separately confirms fit, exact scope, payment, and the start.
+          required: true
