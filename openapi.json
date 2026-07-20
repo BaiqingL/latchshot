@@ -79,7 +79,9 @@
           { "name": "darkMode", "in": "query", "description": "Emulate a dark color-scheme preference for the page.", "schema": { "type": "boolean", "default": false } },
           { "name": "blockAds", "in": "query", "description": "Best-effort blocking of requests to known third-party ad hosts.", "schema": { "type": "boolean", "default": false } },
           { "name": "blockTrackers", "in": "query", "description": "Best-effort blocking of requests to known third-party analytics and tracker hosts.", "schema": { "type": "boolean", "default": false } },
-          { "name": "hideCookieBanners", "in": "query", "description": "Hide common cookie-consent overlays after loading. This does not click consent or set consent cookies.", "schema": { "type": "boolean", "default": false } }
+          { "name": "blockChats", "in": "query", "description": "Best-effort blocking and hiding of known third-party chat widgets.", "schema": { "type": "boolean", "default": false } },
+          { "name": "hideCookieBanners", "in": "query", "description": "Hide common cookie-consent overlays after loading. This does not click consent or set consent cookies.", "schema": { "type": "boolean", "default": false } },
+          { "name": "hidePopups", "in": "query", "description": "Hide common newsletter, signup, and discount popups without clicking or submitting them.", "schema": { "type": "boolean", "default": false } }
         ],
         "responses": {
           "200": {
@@ -288,7 +290,9 @@
           "reducedMotion": { "type": "boolean", "default": true, "description": "Emulate reduced motion to improve capture stability." },
           "blockAds": { "type": "boolean", "default": false, "description": "Best-effort blocking of requests to known third-party ad hosts. This is not anti-bot bypass." },
           "blockTrackers": { "type": "boolean", "default": false, "description": "Best-effort blocking of requests to known third-party analytics and tracker hosts." },
+          "blockChats": { "type": "boolean", "default": false, "description": "Best-effort blocking and hiding of known third-party chat widgets." },
           "hideCookieBanners": { "type": "boolean", "default": false, "description": "Hide common cookie-consent overlays after loading. This does not click consent, set consent cookies, or bypass access controls." },
+          "hidePopups": { "type": "boolean", "default": false, "description": "Hide common newsletter, signup, and discount popups without clicking, submitting, or setting state." },
           "paper": { "type": "string", "enum": ["A4", "Letter", "Legal"], "default": "A4", "description": "Paper size used for PDF rendering." },
           "landscape": { "type": "boolean", "default": false, "description": "Use landscape orientation for PDF rendering." }
         }
