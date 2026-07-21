@@ -50,10 +50,10 @@
     "/api/pilot-requests": {
       "post": {
         "operationId": "requestImplementationPilot",
-        "summary": "Request owner review of one implementation pilot",
+        "summary": "Request a free owner-reviewed implementation fit check",
         "tags": ["Implementation"],
         "security": [],
-        "description": "Records one deduplicated, owner-reviewed request for the fixed-scope $99 implementation pilot. Requires one exact public GitHub repository, one JavaScript/TypeScript/Python backend call site, non-secret contract details, explicit repository authority and reply consent, and acknowledgment that payment and work start only after separate owner confirmation. Does not issue an API key, take payment, reserve work, or authorize a repository change. Limited to three attempts per client IP per hour.",
+        "description": "Records one deduplicated, owner-reviewed fit-check request for the fixed-scope $99 implementation pilot. Requires an email, one exact public GitHub repository, explicit repository authority and reply consent, and acknowledgment that sensitive data is excluded and payment and work start only after separate owner confirmation. Call-site and other technical qualification fields are optional until the owner confirms fit and scope. Does not issue an API key, take payment, reserve work, or authorize a repository change. Limited to three attempts per client IP per hour.",
         "requestBody": {
           "required": true,
           "content": {
@@ -283,17 +283,17 @@
     "schemas": {
       "PilotRequest": {
         "type": "object",
-        "required": ["email", "repositoryUrl", "callSite", "provider", "language", "currentContract", "requiredBehavior", "expectedRenders", "acceptanceSample", "repositoryAuthority", "safetyAcknowledged", "startBoundaryAcknowledged", "replyConsent"],
+        "required": ["email", "repositoryUrl", "repositoryAuthority", "safetyAcknowledged", "startBoundaryAcknowledged", "replyConsent"],
         "properties": {
           "email": { "type": "string", "format": "email", "maxLength": 254, "description": "Address the owner may use only to reply about this pilot request." },
           "repositoryUrl": { "type": "string", "format": "uri", "maxLength": 500, "pattern": "^https://github\\.com/[^/]+/[^/]+(?:\\.git)?$", "description": "Exact public GitHub repository under the requester's control." },
-          "callSite": { "type": "string", "maxLength": 500, "description": "One relative repository file path for the existing backend provider call." },
-          "provider": { "type": "string", "enum": ["ApiFlash", "ScreenshotMachine", "ScreenshotOne", "Urlbox", "Browserless", "Local Playwright or Puppeteer", "Another provider", "Not implemented yet"] },
-          "language": { "type": "string", "enum": ["JavaScript", "TypeScript", "Python"] },
-          "currentContract": { "type": "string", "maxLength": 1500, "description": "Non-secret current request, synchronous output, and application-owned byte handling." },
-          "requiredBehavior": { "type": "string", "maxLength": 1000, "description": "Provider behavior that must be preserved, or none when only synchronous artifact bytes are required." },
-          "expectedRenders": { "type": "string", "enum": ["1–100", "101–2,500", "2,501–12,000", "12,001–50,000", "More than 50,000", "Not sure"] },
-          "acceptanceSample": { "type": "string", "maxLength": 1000, "description": "Safe description of one maintainer-approved public page and required artifact shape." },
+          "callSite": { "type": "string", "maxLength": 500, "default": "Not provided", "description": "Optional relative repository file path for the existing backend provider call. The owner can locate it during the free fit check." },
+          "provider": { "type": "string", "enum": ["ApiFlash", "ScreenshotMachine", "ScreenshotOne", "Urlbox", "Browserless", "Local Playwright or Puppeteer", "Another provider", "Not implemented yet", "Not provided"], "default": "Not provided" },
+          "language": { "type": "string", "enum": ["JavaScript", "TypeScript", "Python", "Not provided"], "default": "Not provided" },
+          "currentContract": { "type": "string", "maxLength": 1500, "default": "Not provided; owner will inspect the public repository.", "description": "Optional non-secret current request, synchronous output, and application-owned byte handling." },
+          "requiredBehavior": { "type": "string", "maxLength": 1000, "default": "Not provided; owner will confirm required behavior before scope.", "description": "Optional provider behavior that must be preserved. The owner confirms it before paid scope is locked." },
+          "expectedRenders": { "type": "string", "enum": ["1–100", "101–2,500", "2,501–12,000", "12,001–50,000", "More than 50,000", "Not sure"], "default": "Not sure" },
+          "acceptanceSample": { "type": "string", "maxLength": 1000, "default": "Not provided; owner will confirm a safe public sample before work.", "description": "Optional safe description of one maintainer-approved public page and required artifact shape." },
           "repositoryAuthority": { "type": "boolean", "const": true, "description": "Confirms authority to review, merge, deploy, and roll back the public repository change." },
           "safetyAcknowledged": { "type": "boolean", "const": true, "description": "Confirms removal of credentials, private or signed URLs, customer data, payment details, and sensitive artifacts." },
           "startBoundaryAcknowledged": { "type": "boolean", "const": true, "description": "Confirms that no payment or work starts before separate owner confirmation." },

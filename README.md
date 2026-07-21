@@ -7,6 +7,7 @@ Turn a public webpage into a PNG, JPEG, or PDF through a guarded, bounded Chromi
 - Production: <https://latchshot.fly.dev>
 - API documentation: <https://latchshot.fly.dev/docs.md>
 - OpenAPI 3.1: [`openapi.json`](openapi.json)
+- Immutable contract snapshot: [`contract-v0.1.5`](https://github.com/BaiqingL/latchshot/releases/tag/contract-v0.1.5)
 - Service health: <https://latchshot.fly.dev/healthz>
 
 This is the canonical public contract, examples, and support repository for the hosted Latchshot service. The hosted renderer source is not published here.
