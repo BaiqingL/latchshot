@@ -47,6 +47,8 @@ It intentionally does not support:
 
 Use a browser you control when the job needs authentication, private connectivity, or browser actions.
 
+Use the [Screenshot API vs Playwright decision guide](https://latchshot.fly.dev/guides/screenshot-api-vs-playwright.html) to separate bounded public-page artifacts from browser workflows before you build or migrate the capture path.
+
 ## Plans
 
 | Plan | Successful renders per UTC month | Monthly price |
